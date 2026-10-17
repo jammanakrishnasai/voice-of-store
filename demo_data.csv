@@ -1,0 +1,63 @@
+﻿id,store_id,timestamp,channel,text,issue_type,severity,demo_record
+DEMO-001,ST-001,2026-10-16T07:53:00+00:00,online_review,Possible allergen label is missing on the peanut cookie shelf.,allergen_label,High,fictional
+DEMO-002,ST-002,2026-10-16T05:46:00+00:00,staff_note,Freezer temperature alarm is sounding and frozen items are soft.,freezer_failure,High,fictional
+DEMO-003,ST-003,2026-10-16T03:39:00+00:00,call_centre,Customer reported stomach illness after eating prepared chicken; investigate urgently.,food_safety,High,fictional
+DEMO-004,ST-004,2026-10-16T01:32:00+00:00,staff_note,Cockroach seen near the back-room food preparation counter.,hygiene,High,fictional
+DEMO-005,ST-005,2026-10-15T23:25:00+00:00,in_app,Card payment failed repeatedly at checkout; queue is blocked.,payment_failure,Medium,fictional
+DEMO-006,ST-006,2026-10-15T21:18:00+00:00,online_review,Shelf says ₹99 but bill charged ₹129 for the same item.,pricing,Medium,fictional
+DEMO-007,ST-007,2026-10-15T19:11:00+00:00,staff_note,Baby formula shelf empty for most of the morning.,stockout,Medium,fictional
+DEMO-008,ST-008,2026-10-15T17:04:00+00:00,call_centre,Staff member spoke abusively and threatened a customer.,staff_misconduct,High,fictional
+DEMO-009,ST-009,2026-10-15T15:57:00+00:00,staff_note,Two customers were charged twice after UPI timeout.,billing,Medium,fictional
+DEMO-010,ST-010,2026-10-15T13:50:00+00:00,online_review,Restroom and customer waiting area are dirty and smell unpleasant.,hygiene,High,fictional
+DEMO-011,ST-011,2026-10-15T11:43:00+00:00,in_app,Online order marked ready but staff cannot find the packed bag.,other,Low,fictional
+DEMO-012,ST-012,2026-10-15T09:36:00+00:00,staff_note,Chiller display reads above the safe range; dairy products feel warm.,freezer_failure,High,fictional
+DEMO-013,ST-013,2026-10-15T07:29:00+00:00,online_review,Ingredient label does not mention milk although the product contains milk.,allergen_label,High,fictional
+DEMO-014,ST-014,2026-10-15T05:22:00+00:00,call_centre,Repeated card declined message despite the bank confirming funds are available.,payment_failure,Medium,fictional
+DEMO-015,ST-015,2026-10-15T03:15:00+00:00,staff_note,Raw chicken stored above ready-to-eat salad in the cooler.,food_safety,High,fictional
+DEMO-016,ST-016,2026-10-15T01:08:00+00:00,online_review,Discount advertised on shelf was not applied at checkout.,pricing,Medium,fictional
+DEMO-017,ST-017,2026-10-14T23:01:00+00:00,staff_note,Rice and cooking oil shelves are empty again this afternoon.,stockout,Medium,fictional
+DEMO-018,ST-018,2026-10-14T21:54:00+00:00,call_centre,Customer says employee made discriminatory remarks.,staff_misconduct,High,fictional
+DEMO-019,ST-019,2026-10-14T19:47:00+00:00,in_app,Self-checkout froze after payment and receipt did not print.,payment_failure,Medium,fictional
+DEMO-020,ST-020,2026-10-14T17:40:00+00:00,staff_note,Mould visible on bread display near the date labels.,hygiene,High,fictional
+DEMO-021,ST-001,2026-10-14T15:33:00+00:00,staff_note,Another shopper asks whether the cookie contains peanuts; label is unclear.,allergen_label,High,fictional
+DEMO-022,ST-002,2026-10-14T13:26:00+00:00,online_review,Freezer still warm; several frozen packages are partly thawed.,freezer_failure,High,fictional
+DEMO-023,ST-003,2026-10-14T11:19:00+00:00,call_centre,Second complaint about nausea after prepared chicken from this location.,food_safety,High,fictional
+DEMO-024,ST-004,2026-10-14T09:12:00+00:00,staff_note,Pest droppings found beside the dry goods storage rack.,hygiene,High,fictional
+DEMO-025,ST-005,2026-10-14T07:05:00+00:00,in_app,UPI payment is stuck on processing and customer was asked to pay again.,payment_failure,Medium,fictional
+DEMO-026,ST-006,2026-10-14T05:58:00+00:00,staff_note,Price tag for detergent does not match the register price.,pricing,Medium,fictional
+DEMO-027,ST-007,2026-10-14T03:51:00+00:00,online_review,Pet food and baby formula unavailable for the second visit.,stockout,Medium,fictional
+DEMO-028,ST-009,2026-10-14T01:44:00+00:00,staff_note,Receipt shows duplicate charge for the same basket item.,billing,Medium,fictional
+DEMO-029,ST-011,2026-10-13T23:37:00+00:00,call_centre,Pickup orders are waiting more than 25 minutes after ready notification.,other,Low,fictional
+DEMO-030,ST-012,2026-10-13T21:30:00+00:00,staff_note,Cold cabinet door will not seal and temperature keeps rising.,freezer_failure,High,fictional
+DEMO-031,ST-013,2026-10-13T19:23:00+00:00,online_review,Allergen warning is printed too small to read on the snack packet.,allergen_label,High,fictional
+DEMO-032,ST-014,2026-10-13T17:16:00+00:00,staff_note,Payment terminal restarts whenever contactless is used.,payment_failure,Medium,fictional
+DEMO-033,ST-015,2026-10-13T15:09:00+00:00,staff_note,Prepared food was left outside refrigeration during restocking.,food_safety,High,fictional
+DEMO-034,ST-016,2026-10-13T13:02:00+00:00,online_review,Offer sticker remains on product but promotion ended at checkout.,pricing,Medium,fictional
+DEMO-035,ST-017,2026-10-13T11:55:00+00:00,staff_note,Several essential items are unavailable before evening rush.,stockout,Medium,fictional
+DEMO-036,ST-018,2026-10-13T09:48:00+00:00,call_centre,Customer reports an employee shouted and made a threatening comment.,staff_misconduct,High,fictional
+DEMO-037,ST-019,2026-10-13T07:41:00+00:00,in_app,Checkout terminal timed out but transaction appears on customer bank app.,payment_failure,Medium,fictional
+DEMO-038,ST-020,2026-10-13T05:34:00+00:00,staff_note,Rodent seen close to the stockroom entrance.,hygiene,High,fictional
+DEMO-039,ST-021,2026-10-13T03:27:00+00:00,online_review,Long checkout wait because only one till is open.,other,Low,fictional
+DEMO-040,ST-022,2026-10-13T01:20:00+00:00,staff_note,Broken glass found in aisle near packaged food.,food_safety,High,fictional
+DEMO-041,ST-023,2026-10-12T23:13:00+00:00,call_centre,Product page says gluten-free but package allergen statement conflicts.,allergen_label,High,fictional
+DEMO-042,ST-024,2026-10-12T21:06:00+00:00,staff_note,Refrigerator is leaking water onto the floor beside dairy.,freezer_failure,High,fictional
+DEMO-043,ST-025,2026-10-12T19:59:00+00:00,online_review,Refund for cancelled order has not appeared after several days.,billing,Medium,fictional
+DEMO-044,ST-026,2026-10-12T17:52:00+00:00,in_app,Shelf is empty for the advertised seasonal product.,stockout,Medium,fictional
+DEMO-045,ST-027,2026-10-12T15:45:00+00:00,staff_note,Customer says handwashing sink has no soap in food-prep area.,hygiene,High,fictional
+DEMO-046,ST-028,2026-10-12T13:38:00+00:00,call_centre,Staff member refused to help and used insulting language.,staff_misconduct,High,fictional
+DEMO-047,ST-029,2026-10-12T11:31:00+00:00,online_review,The same item scanned twice in the receipt.,billing,Medium,fictional
+DEMO-048,ST-030,2026-10-12T09:24:00+00:00,staff_note,Price label is missing from multiple shelf positions.,pricing,Medium,fictional
+DEMO-049,ST-031,2026-10-12T07:17:00+00:00,in_app,App order shows payment success but store system has no order.,payment_failure,Medium,fictional
+DEMO-050,ST-032,2026-10-12T05:10:00+00:00,staff_note,Prepared salad is displayed beyond its use-by time.,food_safety,High,fictional
+DEMO-101,ST-104,2026-10-16T11:20:00+00:00,staff_note,Possible freezer malfunction: cold cabinet temperature alarm sounding and ice cream melting in aisle 4.,freezer_failure,High,Demo data
+DEMO-102,ST-104,2026-10-16T09:15:00+00:00,online_review,Frozen food section in Lincoln Park store feels warm; yogurt tubs are soft.,freezer_failure,High,Demo data
+DEMO-103,ST-104,2026-10-16T07:45:00+00:00,staff_note,Walk-in freezer compressor is running hot and reading 9°C; urgent maintenance requested.,freezer_failure,High,Demo data
+DEMO-201,ST-208,2026-10-16T12:05:00+00:00,online_review,Incorrect allergen label reported on bakery peanut butter cookies; package missing allergen statement!,allergen_label,Critical,Demo data
+DEMO-202,ST-208,2026-10-16T10:30:00+00:00,call_centre,Customer with peanut allergy noticed mislabeled peanut cookies batch #B-882 in Midtown store.,allergen_label,Critical,Demo data
+DEMO-116A,ST-116,2026-10-16T08:10:00+00:00,staff_note,Repeated stockout reports: infant formula and sunflower oil shelves have been completely bare for 3 days.,stockout,Medium,Demo data
+DEMO-116B,ST-116,2026-10-15T16:40:00+00:00,in_app,Third visit this week and baby formula is still out of stock at Westside store.,stockout,Medium,Demo data
+DEMO-116C,ST-116,2026-10-15T11:20:00+00:00,call_centre,Customer complaint regarding empty shelves in essential cooking oil section.,stockout,Medium,Demo data
+DEMO-301,ST-305,2026-10-16T11:45:00+00:00,in_app,Mobile app ordering failure: credit card charged but store system shows no active order ticket.,payment_failure,High,Demo data
+DEMO-302,ST-305,2026-10-16T10:15:00+00:00,staff_note,Curbside pickup terminal failing to sync with mobile app orders; queue of waiting drivers building up.,payment_failure,High,Demo data
+DEMO-091A,ST-091,2026-10-16T06:30:00+00:00,online_review,Customer service complaint: long queues at checkout and unhelpful staff attitude during morning rush.,other,Low,Demo data
+DEMO-091B,ST-091,2026-10-15T14:15:00+00:00,staff_note,Only one cashier register open during peak traffic; customers visibly frustrated.,other,Low,Demo data

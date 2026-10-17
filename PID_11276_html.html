@@ -1,0 +1,1277 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Voice of Store · FIRST SIGNAL Engine</title>
+  
+  <!-- Inter Font -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  
+  <!-- Leaflet CSS for store maps -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Persistent Left Sidebar -->
+  <aside class="sidebar" id="sidebar">
+    <div class="brand">
+      <div class="brand-logo">
+        <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+          <polyline points="9 22 9 12 15 12 15 22"></polyline>
+        </svg>
+      </div>
+      <div class="brand-text">
+        <div class="brand-title">Voice of Store</div>
+        <div class="brand-tag">FIRST SIGNAL AI</div>
+      </div>
+    </div>
+
+    <!-- Navigation items -->
+    <nav class="nav-menu">
+      <button class="nav-item active" data-page="overview">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <rect x="3" y="3" width="7" height="7"></rect>
+          <rect x="14" y="3" width="7" height="7"></rect>
+          <rect x="14" y="14" width="7" height="7"></rect>
+          <rect x="3" y="14" width="7" height="7"></rect>
+        </svg>
+        <span>Overview</span>
+      </button>
+
+      <button class="nav-item" data-page="signals">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+        </svg>
+        <span>FIRST SIGNAL</span>
+        <span class="nav-badge" id="signal-badge">0</span>
+      </button>
+
+      <button class="nav-item" data-page="issues">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="10"></circle>
+          <line x1="12" y1="8" x2="12" y2="12"></line>
+          <line x1="12" y1="16" x2="12.01" y2="16"></line>
+        </svg>
+        <span>Priority Issues</span>
+      </button>
+
+      <button class="nav-item" data-page="feedback">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+        </svg>
+        <span>All Feedback</span>
+      </button>
+
+      <button class="nav-item" data-page="actions">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M16 4h2a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h2"></path>
+          <rect x="8" y="2" width="8" height="4" rx="1" ry="1"></rect>
+          <path d="M9 14l2 2 4-4"></path>
+        </svg>
+        <span>Action Tracker</span>
+      </button>
+
+      <button class="nav-item" data-page="reports">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+          <polyline points="14 2 14 8 20 8"></polyline>
+          <line x1="16" y1="13" x2="8" y2="13"></line>
+          <line x1="16" y1="17" x2="8" y2="17"></line>
+          <polyline points="10 9 9 9 8 9"></polyline>
+        </svg>
+        <span>Weekly Reports</span>
+      </button>
+
+      <button class="nav-item" data-page="settings">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+        <span>Settings</span>
+      </button>
+    </nav>
+
+    <!-- Sidebar footer: user profile -->
+    <div class="user-profile" id="user-profile-menu">
+      <div class="avatar" id="user-avatar">AC</div>
+      <div class="user-info">
+        <div class="user-name" id="user-name">Alex Chen</div>
+        <div class="user-role" id="user-role">Regional Director</div>
+      </div>
+      <button class="profile-switch-btn" id="open-role-switcher" title="Switch User Role">
+        <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+          <polyline points="6 9 12 15 18 9"></polyline>
+        </svg>
+      </button>
+    </div>
+  </aside>
+
+  <!-- Main Application Content Area -->
+  <div class="main-wrapper">
+    <!-- Top Bar with breadcrumbs and actions -->
+    <header class="topbar">
+      <div class="topbar-left">
+        <button class="mobile-toggle" id="sidebar-toggle" aria-label="Toggle navigation">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="3" y1="12" x2="21" y2="12"></line>
+            <line x1="3" y1="6" x2="21" y2="6"></line>
+            <line x1="3" y1="18" x2="21" y2="18"></line>
+          </svg>
+        </button>
+
+        <nav class="breadcrumb" aria-label="Breadcrumb">
+          <span class="bc-item" id="bc-root" data-nav="overview">Voice of Store</span>
+          <span class="bc-sep">/</span>
+          <span class="bc-item active" id="bc-current">Overview</span>
+        </nav>
+      </div>
+
+      <div class="topbar-right">
+        <!-- Notification Bell & Dropdown Popover -->
+        <div class="notif-wrapper" id="notif-wrapper">
+          <button class="btn btn-outline notif-bell-btn" id="btn-notif-bell" aria-label="Notifications" aria-haspopup="true" aria-expanded="false" title="Notifications">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+              <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+            </svg>
+            <span class="notif-badge hidden" id="notif-badge">0</span>
+          </button>
+
+          <!-- Notification Dropdown Popover -->
+          <div class="notif-dropdown hidden" id="notif-dropdown" role="region" aria-label="Notifications">
+            <div class="notif-dropdown-header">
+              <div class="notif-header-title">
+                <span>Notifications</span>
+                <span class="badge-count" id="notif-count-badge">0</span>
+              </div>
+              <button class="btn-text-action" id="btn-mark-all-read">Mark all as read</button>
+            </div>
+            <div class="notif-dropdown-list" id="notif-list">
+              <div class="notif-empty-state" id="notif-empty">
+                <svg width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"></path>
+                  <path d="M13.73 21a2 2 0 0 1-3.46 0"></path>
+                </svg>
+                <p>No new notifications</p>
+                <span class="text-muted text-sm">All store alerts have been reviewed</span>
+              </div>
+            </div>
+            <div class="notif-dropdown-footer">
+              <a href="#" data-nav="signals" class="notif-view-all">View all FIRST SIGNAL alerts →</a>
+            </div>
+          </div>
+        </div>
+
+        <button class="btn btn-outline" id="btn-refresh" title="Refresh detection signals">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="23 4 23 10 17 10"></polyline>
+            <polyline points="1 20 1 14 7 14"></polyline>
+            <path d="M3.51 9a9 9 0 0 1 14.85-3.36L23 10M1 14l4.64 4.36A9 9 0 0 0 20.49 15"></path>
+          </svg>
+          <span>Refresh</span>
+        </button>
+
+        <button class="btn btn-primary" id="open-add-feedback">
+          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <line x1="12" y1="5" x2="12" y2="19"></line>
+            <line x1="5" y1="12" x2="19" y2="12"></line>
+          </svg>
+          <span>Add Feedback</span>
+        </button>
+      </div>
+    </header>
+
+    <!-- Main Container -->
+    <main class="content-container">
+      
+      <!-- 1. OVERVIEW PAGE -->
+      <section id="page-overview" class="page-view active">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Store Operations Overview</h1>
+            <p class="page-subtitle">Evidence-linked early warnings, urgent active incidents, and recent store audit trails.</p>
+          </div>
+          <div class="demo-tag" title="Demonstration mode active">
+            <span class="dot pulse"></span> Synthetic demo records labeled
+          </div>
+        </div>
+
+        <!-- 5 Summary Cards -->
+        <div class="stat-grid">
+          <article class="stat-card">
+            <div class="stat-icon-wrap bg-purple-soft">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7652C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"></path>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Total Feedback Records</span>
+              <strong class="stat-value" id="stat-total-feedback">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon-wrap bg-purple-soft">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#7652C8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <line x1="12" y1="8" x2="12" y2="12"></line>
+                <line x1="12" y1="16" x2="12.01" y2="16"></line>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Active Incidents</span>
+              <strong class="stat-value" id="stat-active-incidents">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card alert-critical">
+            <div class="stat-icon-wrap bg-critical-soft">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D9364F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10.29 3.86L1.82 18a2 2 0 0 0 1.71 3h16.94a2 2 0 0 0 1.71-3L13.71 3.86a2 2 0 0 0-3.42 0z"></path>
+                <line x1="12" y1="9" x2="12" y2="13"></line>
+                <line x1="12" y1="17" x2="12.01" y2="17"></line>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Critical / High Priority</span>
+              <strong class="stat-value text-critical" id="stat-critical-high">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon-wrap bg-amber-soft">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#D6A52D" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="12" cy="12" r="10"></circle>
+                <polyline points="12 6 12 12 16 14"></polyline>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Awaiting Verification</span>
+              <strong class="stat-value text-amber" id="stat-awaiting-verification">—</strong>
+            </div>
+          </article>
+
+          <article class="stat-card">
+            <div class="stat-icon-wrap bg-green-soft">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#31956B" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path>
+                <polyline points="22 4 12 14.01 9 11.01"></polyline>
+              </svg>
+            </div>
+            <div class="stat-body">
+              <span class="stat-label">Resolved Incidents</span>
+              <strong class="stat-value text-green" id="stat-resolved">—</strong>
+            </div>
+          </article>
+        </div>
+
+        <!-- Section: Needs Attention -->
+        <div class="panel-section">
+          <div class="panel-header">
+            <div>
+              <h2 class="panel-title">Needs Attention</h2>
+              <p class="panel-subtitle">Most urgent active incidents prioritized by safety severity and response deadline.</p>
+            </div>
+            <button class="btn btn-sm btn-outline" data-nav="issues">View all issues →</button>
+          </div>
+          <div id="overview-needs-attention" class="cards-grid">
+            <div class="empty-state">Loading urgent incidents…</div>
+          </div>
+        </div>
+
+        <!-- Two column split: Recent Activity & Emerging Issues -->
+        <div class="two-col-grid">
+          <!-- Recent Activity -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Recent Activity</h2>
+                <p class="panel-subtitle">Live audit trail of incident assignments, investigations, and status changes.</p>
+              </div>
+            </div>
+            <div id="overview-recent-activity" class="activity-timeline">
+              <div class="empty-state">Loading activity feed…</div>
+            </div>
+          </div>
+
+          <!-- Emerging Issues (FIRST SIGNAL) -->
+          <div class="panel-section">
+            <div class="panel-header">
+              <div>
+                <h2 class="panel-title">Emerging Issues (FIRST SIGNAL)</h2>
+                <p class="panel-subtitle">Newly flagged store clusters and early leads awaiting verification.</p>
+              </div>
+              <button class="btn btn-sm btn-outline" data-nav="signals">View signals feed →</button>
+            </div>
+            <div id="overview-emerging-issues" class="cards-stack">
+              <div class="empty-state">Loading emerging signals…</div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- 2. FIRST SIGNAL PAGE -->
+      <section id="page-signals" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">FIRST SIGNAL Early-Warning Feed</h1>
+            <p class="page-subtitle">AI-assisted detection of emerging store-level issues. Single safety reports are surfaced immediately; operational issues require repeated corroboration.</p>
+          </div>
+          <div class="toolbar-actions">
+            <label class="sort-selector">
+              <span>Sort:</span>
+              <select id="signal-sort-select">
+                <option value="severity">Severity (Critical → Low)</option>
+                <option value="newest">Most Recent</option>
+                <option value="evidence">Most Evidence Reports</option>
+                <option value="oldest">Oldest Detection</option>
+              </select>
+            </label>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="signal-search" placeholder="Search issue, store ID, department, or keywords…">
+          </div>
+          <select id="signal-sev-filter">
+            <option value="">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="signal-dept-filter">
+            <option value="">All Departments</option>
+            <option value="Store Operations">Store Operations</option>
+            <option value="Food Safety">Food Safety</option>
+            <option value="Supply Chain">Supply Chain</option>
+            <option value="Digital">Digital</option>
+            <option value="HR">HR</option>
+            <option value="Customer Experience">Customer Experience</option>
+          </select>
+          <select id="signal-status-filter">
+            <option value="">All Workflow Statuses</option>
+            <option value="Detected — awaiting review">Detected — awaiting review</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Investigating">Investigating</option>
+            <option value="Action in progress">Action in progress</option>
+            <option value="Pending verification">Pending verification</option>
+            <option value="Resolved">Resolved</option>
+          </select>
+        </div>
+
+        <div class="notice-card">
+          <div class="notice-icon">
+            <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="12" cy="12" r="10"></circle>
+              <line x1="12" y1="16" x2="12" y2="12"></line>
+              <line x1="12" y1="8" x2="12.01" y2="8"></line>
+            </svg>
+          </div>
+          <div>
+            <strong>Early Warning Notice:</strong> FIRST SIGNAL identifies anomaly clusters and mandatory safety triggers from feedback. A signal is a lead to investigate, not confirmed fault until store verification is complete.
+          </div>
+        </div>
+
+        <div id="signal-feed" class="signal-feed-grid">
+          <div class="empty-state">Loading early warning signals…</div>
+        </div>
+      </section>
+
+      <!-- 3. PRIORITY ISSUES PAGE (Inspired by Reference 1: clean searchable table) -->
+      <section id="page-issues" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Priority Issues</h1>
+            <p class="page-subtitle">Central incident management dashboard with multi-criteria filtering and detailed location triage.</p>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn btn-outline" id="btn-export-issues">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export CSV</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar filter-bar-issues">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="issue-search" placeholder="Search by incident ID, summary, store ID, or assignee…">
+          </div>
+          <select id="issue-sev-filter">
+            <option value="">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="issue-dept-filter">
+            <option value="">All Teams</option>
+            <option value="Store Operations">Store Operations</option>
+            <option value="Food Safety">Food Safety</option>
+            <option value="Supply Chain">Supply Chain</option>
+            <option value="Digital">Digital</option>
+            <option value="HR">HR</option>
+            <option value="Customer Experience">Customer Experience</option>
+          </select>
+          <select id="issue-status-filter">
+            <option value="">All Statuses</option>
+            <option value="Detected — awaiting review">Detected — awaiting review</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Investigating">Investigating</option>
+            <option value="Action in progress">Action in progress</option>
+            <option value="Pending verification">Pending verification</option>
+            <option value="Resolved">Resolved</option>
+          </select>
+          <select id="issue-sort-select">
+            <option value="severity">Sort: Severity</option>
+            <option value="newest">Sort: Newest Detection</option>
+            <option value="oldest">Sort: Oldest Unresolved</option>
+            <option value="due_date">Sort: Due Date</option>
+          </select>
+        </div>
+
+        <!-- Table Container -->
+        <div class="table-container">
+          <table class="data-table" id="issues-table">
+            <thead>
+              <tr>
+                <th style="width: 110px;">Incident ID</th>
+                <th style="min-width: 220px;">Issue</th>
+                <th style="width: 140px;">Store</th>
+                <th style="width: 150px;">Location</th>
+                <th style="width: 100px;">Severity</th>
+                <th style="width: 160px;">Assigned Team</th>
+                <th style="width: 130px;">Detected Time</th>
+                <th style="width: 140px;">Status</th>
+                <th style="width: 180px; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="issues-table-body">
+              <tr>
+                <td colspan="9" class="text-center py-4 text-muted">Loading incidents table…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 4. DETAILED INCIDENT INVESTIGATION PAGE (HIGHEST PRIORITY! Inspired by Reference 2) -->
+      <section id="page-detail" class="page-view">
+        <div class="detail-header-bar">
+          <button class="btn btn-sm btn-outline" id="btn-back-to-issues">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="19" y1="12" x2="5" y2="12"></line>
+              <polyline points="12 19 5 12 12 5"></polyline>
+            </svg>
+            <span>Back to Priority Issues</span>
+          </button>
+          
+          <div class="detail-action-buttons">
+            <button class="btn btn-secondary btn-sm" id="btn-action-im-on-it" title="Take ownership of this incident">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+                <circle cx="12" cy="7" r="4"></circle>
+              </svg>
+              <span>I'm on it</span>
+            </button>
+            <button class="btn btn-outline btn-sm" id="btn-action-assign">Assign</button>
+            <button class="btn btn-outline btn-sm" id="btn-action-add-note">Add Note</button>
+            <button class="btn btn-outline btn-sm" id="btn-action-update-status">Update Status</button>
+            <button class="btn btn-danger-outline btn-sm" id="btn-action-escalate">Escalate</button>
+          </div>
+        </div>
+
+        <div class="investigation-layout">
+          <!-- LEFT COLUMN: Incident Information, Location, Evidence, Severity & Policy -->
+          <div class="investigation-left">
+            
+            <!-- Main Incident Title Card -->
+            <div class="card detail-card-main">
+              <div class="detail-card-header">
+                <div>
+                  <div class="detail-eyebrow">
+                    <span id="dt-id" class="badge-id">FS-0104</span>
+                    <span id="dt-demo-badge" class="badge-demo">Demo data</span>
+                    <span id="dt-dept" class="badge-dept">Store Operations</span>
+                  </div>
+                  <h1 id="dt-title" class="detail-title">Possible freezer malfunction</h1>
+                  <p id="dt-description" class="detail-summary">Walk-in freezer alarm sounding and temperature reading 9°C in dairy aisle.</p>
+                </div>
+                <div class="detail-status-badges">
+                  <span id="dt-severity-badge" class="pill pill-high">High</span>
+                  <span id="dt-status-badge" class="pill pill-status">Investigating</span>
+                </div>
+              </div>
+
+              <!-- Metadata Grid -->
+              <div class="meta-inline-grid">
+                <div>
+                  <span class="meta-label">Store</span>
+                  <strong id="dt-store-name" class="meta-val">Lincoln Park Supercenter (ST-104)</strong>
+                </div>
+                <div>
+                  <span class="meta-label">Region</span>
+                  <strong id="dt-region" class="meta-val">Midwest Region</strong>
+                </div>
+                <div>
+                  <span class="meta-label">First Detected</span>
+                  <strong id="dt-first-detected" class="meta-val">—</strong>
+                </div>
+                <div>
+                  <span class="meta-label">Last Updated</span>
+                  <strong id="dt-last-updated" class="meta-val">—</strong>
+                </div>
+              </div>
+
+              <!-- Detection Reason Callout -->
+              <div class="callout callout-purple">
+                <div class="callout-title">
+                  <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"></polygon>
+                  </svg>
+                  <span>FIRST SIGNAL Detection Reason</span>
+                </div>
+                <p id="dt-why-raised" class="callout-body">—</p>
+              </div>
+            </div>
+
+            <!-- Location Card -->
+            <div class="card location-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Store Location & Coordinates</h3>
+                  <p class="card-subtitle" id="dt-address-line">1420 N Michigan Ave, Chicago, IL 60611</p>
+                </div>
+                <a id="dt-map-external-link" href="#" target="_blank" rel="noopener noreferrer" class="btn btn-sm btn-outline">
+                  <span>Open in Maps</span>
+                  <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <path d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6"></path>
+                    <polyline points="15 3 21 3 21 9"></polyline>
+                    <line x1="10" y1="14" x2="21" y2="3"></line>
+                  </svg>
+                </a>
+              </div>
+
+              <!-- Interactive Map Container or Missing State -->
+              <div id="store-map-wrapper" class="map-wrapper">
+                <div id="store-map" class="store-map-canvas"></div>
+                <div id="store-map-missing" class="map-missing-state hidden">
+                  <div class="missing-pin-icon">
+                    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="#777187" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round">
+                      <path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"></path>
+                      <circle cx="12" cy="10" r="3"></circle>
+                    </svg>
+                  </div>
+                  <h4>Location information unavailable</h4>
+                  <p>No verified GPS coordinates or address data on file for this location. Store ID and regional boundaries retained.</p>
+                  <div class="retained-store-badge" id="dt-retained-region">Retained Store: ST-091 · Pacific Northwest Region</div>
+                </div>
+              </div>
+
+              <div class="location-details-bar" id="dt-location-extra">
+                <div><span>Store Manager:</span> <strong id="dt-store-mgr">—</strong></div>
+                <div><span>Contact:</span> <strong id="dt-store-phone">—</strong></div>
+                <div><span>Aisle / Department:</span> <strong id="dt-store-aisle">Dairy & Refrigerated Aisle 4</strong></div>
+              </div>
+            </div>
+
+            <!-- Evidence Section with Keyword Highlighting -->
+            <div class="card evidence-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Contributing Feedback Evidence</h3>
+                  <p class="card-subtitle">Original customer and staff reports that triggered this incident. Relevant phrases highlighted.</p>
+                </div>
+                <span class="badge-count" id="dt-evidence-count">3 reports</span>
+              </div>
+
+              <!-- Grouping explanation -->
+              <div class="grouping-banner" id="dt-grouping-reason">
+                <strong>Clustering basis:</strong> Grouped by store ST-104 and cold storage failure keywords within 72h window.
+              </div>
+
+              <!-- List of evidence records -->
+              <div id="dt-evidence-list" class="evidence-list">
+                <!-- Rendered dynamically -->
+              </div>
+            </div>
+
+            <!-- Severity & Escalation Policy Section -->
+            <div class="card policy-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Severity & Policy Escalation Standards</h3>
+                  <p class="card-subtitle">Applicable compliance standard and SLA deadline enforcement.</p>
+                </div>
+                <span id="dt-escalated-pill" class="pill pill-escalated hidden">Escalation Required</span>
+              </div>
+
+              <div class="policy-grid">
+                <div class="policy-item">
+                  <span class="meta-label">Applicable Policy</span>
+                  <strong id="dt-policy-name" class="meta-val">Cold-Chain Integrity & Refrigeration Equipment SOP-405</strong>
+                  <p id="dt-policy-desc" class="policy-desc">Critical refrigeration failure. Temperature telemetry logging and transfer within 4 hours.</p>
+                </div>
+                <div class="policy-item">
+                  <span class="meta-label">Response Deadline (SLA)</span>
+                  <strong id="dt-response-deadline" class="meta-val text-amber">4 hours from detection</strong>
+                  <div id="dt-deadline-status" class="deadline-countdown">Due today by 18:00 UTC</div>
+                </div>
+                <div class="policy-item">
+                  <span class="meta-label">Assigned Owner</span>
+                  <strong id="dt-assigned-person" class="meta-val">Marcus Vance (Store Ops Lead)</strong>
+                  <span id="dt-assigned-team" class="text-muted">Store Operations</span>
+                </div>
+                <div class="policy-item">
+                  <span class="meta-label">Escalation Status</span>
+                  <strong id="dt-escalation-state" class="meta-val">Standard Escalation Protocol</strong>
+                  <p id="dt-escalation-notes" class="policy-desc">Mandatory reporting threshold maintained.</p>
+                </div>
+              </div>
+            </div>
+
+          </div>
+
+          <!-- RIGHT COLUMN: Vertical Progress Tracker & Investigation Form -->
+          <div class="investigation-right">
+            
+            <!-- Vertical Progress Tracker -->
+            <div class="card progress-tracker-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Incident Progress Tracker</h3>
+                  <p class="card-subtitle">Persisted workflow pipeline reflecting actual backend state.</p>
+                </div>
+              </div>
+
+              <div class="vertical-tracker" id="dt-progress-tracker">
+                <!-- Rendered dynamically with 6 distinct steps -->
+              </div>
+            </div>
+
+            <!-- Active Investigation Form -->
+            <div class="card investigation-form-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Record Investigation Findings</h3>
+                  <p class="card-subtitle">Document store inspection results and corrective actions.</p>
+                </div>
+              </div>
+
+              <form id="investigation-form" class="compact-form">
+                <div class="form-group">
+                  <label for="inv-findings">Investigation Findings</label>
+                  <textarea id="inv-findings" rows="3" placeholder="Describe findings from store visit or telemetry review…"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="inv-verdict">Verification Verdict</label>
+                  <select id="inv-verdict">
+                    <option value="Confirmed">Confirmed — Real issue present</option>
+                    <option value="Inconclusive">Inconclusive — Further monitoring required</option>
+                    <option value="Not substantiated">Not substantiated — False alarm / Dismiss</option>
+                  </select>
+                </div>
+
+                <div class="form-group">
+                  <label for="inv-action">Corrective Action Taken / Required</label>
+                  <textarea id="inv-action" rows="2" placeholder="e.g. Technician dispatched, products quarantined…"></textarea>
+                </div>
+
+                <div class="form-group">
+                  <label for="inv-notes">Supporting References / Audit Notes</label>
+                  <input type="text" id="inv-notes" placeholder="e.g. Work order #WO-9921, lot #B-882">
+                </div>
+
+                <button type="submit" class="btn btn-primary btn-block" id="btn-save-investigation">
+                  Save Investigation Findings
+                </button>
+              </form>
+            </div>
+
+            <!-- Resolution / Verification Card -->
+            <div class="card resolution-box-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Resolution & Verification</h3>
+                  <p class="card-subtitle">Submit for quality verification or close incident.</p>
+                </div>
+              </div>
+              <div class="resolution-content">
+                <p class="text-sm text-muted">High and critical safety incidents require quality compliance signoff before resolution is finalized.</p>
+                <div class="resolution-actions-bar">
+                  <button class="btn btn-outline" id="btn-submit-verification">Submit for Verification</button>
+                  <button class="btn btn-primary" id="btn-resolve-incident">Resolve Incident</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Audit History Timeline -->
+            <div class="card audit-card">
+              <div class="card-header">
+                <div>
+                  <h3 class="card-title">Incident Audit Trail</h3>
+                  <p class="card-subtitle">Timestamped history of all reviewer interactions.</p>
+                </div>
+              </div>
+              <div id="dt-audit-list" class="audit-trail-list">
+                <div class="empty-state">No audit logs recorded yet.</div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </section>
+
+      <!-- 5. ALL FEEDBACK PAGE (With Server-Side Pagination & Drawer) -->
+      <section id="page-feedback" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">All Store Feedback</h1>
+            <p class="page-subtitle">Searchable, paginated repository of raw feedback records, predicted taxonomies, and linked incident candidates.</p>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn btn-primary" id="btn-import-dataset">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="17 8 12 3 7 8"></polyline>
+                <line x1="12" y1="3" x2="12" y2="15"></line>
+              </svg>
+              <span>Import Dataset</span>
+            </button>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar filter-bar-feedback">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="fb-search-input" placeholder="Search feedback text, ID, or store…">
+          </div>
+          <select id="fb-channel-filter">
+            <option value="">All Channels</option>
+            <option value="staff_note">Staff Note</option>
+            <option value="in_app">In-App</option>
+            <option value="online_review">Online Review</option>
+            <option value="call_centre">Call Centre</option>
+          </select>
+          <select id="fb-issue-filter">
+            <option value="">All Issue Types</option>
+            <option value="freezer_failure">Freezer Failure</option>
+            <option value="allergen_label">Allergen Label</option>
+            <option value="food_safety">Food Safety</option>
+            <option value="hygiene">Hygiene</option>
+            <option value="payment_failure">Payment Failure</option>
+            <option value="stockout">Stockout</option>
+            <option value="billing">Billing</option>
+            <option value="pricing">Pricing</option>
+            <option value="staff_misconduct">Staff Misconduct</option>
+            <option value="other">Other</option>
+          </select>
+          <select id="fb-severity-filter">
+            <option value="">All Severities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="fb-actionable-filter">
+            <option value="">All Actionability</option>
+            <option value="1">Actionable only</option>
+            <option value="0">Non-actionable only</option>
+          </select>
+        </div>
+
+        <!-- Table -->
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="width: 110px;">Feedback ID</th>
+                <th style="min-width: 280px;">Original Message</th>
+                <th style="width: 120px;">Channel</th>
+                <th style="width: 100px;">Store</th>
+                <th style="width: 130px;">Timestamp</th>
+                <th style="width: 140px;">Predicted Issue</th>
+                <th style="width: 100px;">Severity</th>
+                <th style="width: 100px;">Actionable</th>
+                <th style="width: 150px;">Linked Incident</th>
+              </tr>
+            </thead>
+            <tbody id="feedback-table-body">
+              <tr>
+                <td colspan="9" class="text-center py-4 text-muted">Loading feedback records…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- Pagination Controls -->
+        <div class="pagination-bar">
+          <div class="pagination-info" id="fb-pagination-info">Showing 1-25 of — records</div>
+          <div class="pagination-controls">
+            <label class="page-size-selector">
+              <span>Show:</span>
+              <select id="fb-page-size">
+                <option value="15">15</option>
+                <option value="25" selected>25</option>
+                <option value="50">50</option>
+                <option value="100">100</option>
+              </select>
+            </label>
+            <button class="btn btn-sm btn-outline" id="fb-prev-page" disabled>Previous</button>
+            <span class="current-page-num" id="fb-current-page-num">1</span>
+            <button class="btn btn-sm btn-outline" id="fb-next-page">Next</button>
+          </div>
+        </div>
+      </section>
+
+      <!-- 6. ACTION TRACKER PAGE (Inspired by Reference 4: task tracking table) -->
+      <section id="page-actions" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Action Tracker</h1>
+            <p class="page-subtitle">Track required operational tasks, assigned team leads, and live deadlines.</p>
+          </div>
+          <div class="tab-pills">
+            <button class="tab-pill active" data-action-filter="all">All Tasks</button>
+            <button class="tab-pill" data-action-filter="overdue">Overdue <span class="pill-count" id="count-overdue">0</span></button>
+            <button class="tab-pill" data-action-filter="due_soon">Due Soon (&lt;24h)</button>
+            <button class="tab-pill" data-action-filter="my_tasks">Assigned to Me</button>
+            <button class="tab-pill" data-action-filter="unassigned">Unassigned</button>
+            <button class="tab-pill" data-action-filter="completed">Completed</button>
+          </div>
+        </div>
+
+        <!-- Filter bar -->
+        <div class="filter-bar">
+          <div class="search-input-wrap">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <circle cx="11" cy="11" r="8"></circle>
+              <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+            </svg>
+            <input type="text" id="action-search-input" placeholder="Search tasks by incident, store, assignee, or action…">
+          </div>
+          <select id="action-sev-filter">
+            <option value="">All Priorities</option>
+            <option value="Critical">Critical</option>
+            <option value="High">High</option>
+            <option value="Medium">Medium</option>
+            <option value="Low">Low</option>
+          </select>
+          <select id="action-dept-filter">
+            <option value="">All Teams</option>
+            <option value="Store Operations">Store Operations</option>
+            <option value="Food Safety">Food Safety</option>
+            <option value="Supply Chain">Supply Chain</option>
+            <option value="Digital">Digital</option>
+            <option value="HR">HR</option>
+          </select>
+        </div>
+
+        <!-- Task Table -->
+        <div class="table-container">
+          <table class="data-table">
+            <thead>
+              <tr>
+                <th style="min-width: 220px;">Incident</th>
+                <th style="min-width: 260px;">Required Action</th>
+                <th style="width: 170px;">Assigned Lead</th>
+                <th style="width: 160px;">Due Date</th>
+                <th style="width: 100px;">Priority</th>
+                <th style="width: 140px;">Status</th>
+                <th style="width: 180px; text-align: right;">Action</th>
+              </tr>
+            </thead>
+            <tbody id="actions-table-body">
+              <tr>
+                <td colspan="7" class="text-center py-4 text-muted">Loading action tracker…</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </section>
+
+      <!-- 7. WEEKLY REPORTS PAGE (One-page regional brief) -->
+      <section id="page-reports" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Weekly Regional Operations Brief</h1>
+            <p class="page-subtitle">Executive summary of recurring store issues, week-over-week trends, and real evidence quotes.</p>
+          </div>
+          <div class="toolbar-actions">
+            <button class="btn btn-outline" id="btn-print-report" onclick="window.print()">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <polyline points="6 9 6 2 18 2 18 9"></polyline>
+                <path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"></path>
+                <rect x="6" y="14" width="12" height="8"></rect>
+              </svg>
+              <span>Print Brief</span>
+            </button>
+            <a class="btn btn-primary" href="/api/reports/weekly.csv" download="voice_of_store_weekly_brief.csv">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+              </svg>
+              <span>Export CSV</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="report-meta-box" id="report-meta-container">
+          <!-- Rendered dynamically -->
+        </div>
+
+        <div class="panel-section">
+          <h2 class="panel-title">Top 5 Regional Operational Issues</h2>
+          <p class="panel-subtitle">Ranked by observed complaint volume with calculated week-over-week direction.</p>
+          <div id="report-top-issues" class="report-issues-stack">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+
+        <div class="panel-section">
+          <h2 class="panel-title">High-Severity Safety & Quality Alerts</h2>
+          <p class="panel-subtitle">Critical incidents and representative verbatim evidence quotes.</p>
+          <div id="report-high-severity" class="report-quotes-grid">
+            <!-- Rendered dynamically -->
+          </div>
+        </div>
+      </section>
+
+      <!-- 8. SETTINGS PAGE -->
+      <section id="page-settings" class="page-view">
+        <div class="page-header">
+          <div>
+            <h1 class="page-title">Application Settings & Configuration</h1>
+            <p class="page-subtitle">Configure FIRST SIGNAL detection sensitivity, review role permissions, and manage demo datasets.</p>
+          </div>
+        </div>
+
+        <div class="settings-grid">
+          <!-- Active User Profile Card -->
+          <div class="card">
+            <h3 class="card-title">Active User Profile & Role</h3>
+            <p class="card-subtitle">Choose active persona to simulate role-based incident workflows and assignment filtering.</p>
+            
+            <div class="form-group mt-3">
+              <label for="settings-role-picker">Select Persona / User</label>
+              <select id="settings-role-picker">
+                <option value="Alex Chen|Regional Operations Director|Store Ops Regional HQ">Alex Chen — Regional Operations Director</option>
+                <option value="Marcus Vance|Store Operations Lead|Store ST-104">Marcus Vance — Store Operations Lead (Store ST-104)</option>
+                <option value="Dr. Elena Rostova|Food Safety Compliance Lead|Quality & Safety">Dr. Elena Rostova — Food Safety Compliance Lead</option>
+                <option value="Priya Sharma|Digital Systems Engineer|Digital Ops">Priya Sharma — Digital Systems Engineer</option>
+                <option value="Raj Patel|Supply Chain Lead|Supply Logistics">Raj Patel — Supply Chain Lead</option>
+                <option value="Sarah Jenkins|Customer Experience Lead|Store ST-091">Sarah Jenkins — Customer Experience Lead</option>
+              </select>
+            </div>
+            <div class="role-permissions-box" id="settings-role-details">
+              <strong>Active Role:</strong> Regional Operations Director<br>
+              <strong>Permissions:</strong> Full incident triage, escalation authority, assignment reassignment, and regional brief export.
+            </div>
+          </div>
+
+          <!-- FIRST SIGNAL Detection Engine -->
+          <div class="card">
+            <h3 class="card-title">FIRST SIGNAL Detection Parameters</h3>
+            <p class="card-subtitle">Adjust clustering thresholds and safety keyword escalation rules.</p>
+            
+            <div class="form-group mt-3">
+              <label>Clustering Time Window</label>
+              <select id="cfg-window">
+                <option value="24">24 hours (Aggressive)</option>
+                <option value="72" selected>72 hours (Recommended Default)</option>
+                <option value="168">7 days (Broad Trend Window)</option>
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label>Ordinary Issue Cluster Threshold</label>
+              <select id="cfg-threshold">
+                <option value="1" selected>1 report (Surface all candidate leads)</option>
+                <option value="2">2 reports (Standard cluster trigger)</option>
+                <option value="3">3 reports (High-confidence cluster only)</option>
+              </select>
+            </div>
+
+            <div class="callout callout-purple">
+              <strong>Mandatory Safety Rule:</strong> Reports matching allergen, biological food safety, or severe misconduct bypass minimum thresholds and signal immediately.
+            </div>
+          </div>
+
+          <!-- Demo Data Management -->
+          <div class="card">
+            <h3 class="card-title">Demonstration Data Management</h3>
+            <p class="card-subtitle">Reset and re-seed the 5 illustrative incidents and baseline feedback records.</p>
+            
+            <div class="demo-status-box">
+              <div class="status-indicator">
+                <span class="dot-online"></span>
+                <span>Demo Data Mode: <strong>Active (Clearly Labeled)</strong></span>
+              </div>
+              <p class="text-sm text-muted mt-2">All synthetic demonstration items are explicitly tagged with "Demo data" badges. Real evaluation data is never silently overridden.</p>
+            </div>
+
+            <div class="mt-4">
+              <button class="btn btn-outline" id="btn-reset-demo">
+                <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M3 2v6h6"></path>
+                  <path d="M21 12A9 9 0 0 0 6 5.3L3 8"></path>
+                  <path d="M21 22v-6h-6"></path>
+                  <path d="M3 12a9 9 0 0 0 15 6.7l3-2.7"></path>
+                </svg>
+                <span>Reset & Reload Demo Incidents</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- System Health -->
+          <div class="card">
+            <h3 class="card-title">System Status & Diagnostics</h3>
+            <p class="card-subtitle">Local database integrity and engine metrics.</p>
+            
+            <div class="sys-metrics-list mt-3">
+              <div class="sys-metric-row"><span>Engine Status:</span> <strong class="text-green">Operational</strong></div>
+              <div class="sys-metric-row"><span>Local Database:</span> <strong>SQLite 3 (WAL mode enabled)</strong></div>
+              <div class="sys-metric-row"><span>Connected Stores:</span> <strong id="sys-store-count">15 Master Stores</strong></div>
+              <div class="sys-metric-row"><span>Leaflet OpenStreetMap:</span> <strong>Active</strong></div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+    </main>
+  </div>
+
+  <!-- MODALS -->
+
+  <!-- 1. Add Feedback / Import Modal -->
+  <div id="modal-feedback" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Store Feedback</h3>
+        <button class="modal-close-btn" id="close-modal-feedback">&times;</button>
+      </div>
+      <div class="modal-body">
+        <div class="modal-tabs">
+          <button class="modal-tab active" data-tab="tab-manual">Single Feedback</button>
+          <button class="modal-tab" data-tab="tab-import">Import CSV / JSON</button>
+        </div>
+
+        <!-- Manual Tab -->
+        <form id="form-add-feedback" class="modal-tab-content active">
+          <div class="form-group">
+            <label for="mf-store">Store ID *</label>
+            <input type="text" id="mf-store" required placeholder="e.g. ST-104 or ST-208">
+          </div>
+          <div class="form-group">
+            <label for="mf-channel">Feedback Channel *</label>
+            <select id="mf-channel" required>
+              <option value="staff_note">Staff Internal Note</option>
+              <option value="online_review">Online Customer Review</option>
+              <option value="in_app">Mobile In-App Feedback</option>
+              <option value="call_centre">Customer Call Centre</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="mf-timestamp">Timestamp (optional, UTC)</label>
+            <input type="text" id="mf-timestamp" placeholder="e.g. 2026-10-16T12:00:00Z">
+          </div>
+          <div class="form-group">
+            <label for="mf-text">Feedback Message *</label>
+            <textarea id="mf-text" rows="4" required placeholder="Paste the exact verbatim customer or staff report…"></textarea>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block">Save Feedback & Sync Signals</button>
+        </form>
+
+        <!-- Import Tab -->
+        <form id="form-import-dataset" class="modal-tab-content">
+          <p class="text-sm text-muted mb-3">Upload a CSV or JSON dataset. Supported headers include <code>store_id</code>, <code>channel</code>, <code>timestamp</code>, and <code>text</code> / <code>feedback</code> / <code>comment</code>.</p>
+          <div class="form-group">
+            <input type="file" id="import-file-input" accept=".csv,.json" required>
+          </div>
+          <button type="submit" class="btn btn-primary btn-block" id="btn-submit-import">Import Dataset File</button>
+          <div id="import-result-message" class="mt-2 text-sm"></div>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <!-- 2. Assign Incident Modal -->
+  <div id="modal-assign" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Assign Incident Lead</h3>
+        <button class="modal-close-btn" id="close-modal-assign">&times;</button>
+      </div>
+      <form id="form-assign-incident" class="modal-body">
+        <input type="hidden" id="assign-incident-id">
+        <div class="form-group">
+          <label for="assign-dept">Responsible Department</label>
+          <select id="assign-dept" required>
+            <option value="Store Operations">Store Operations</option>
+            <option value="Food Safety">Food Safety</option>
+            <option value="Supply Chain">Supply Chain</option>
+            <option value="Digital">Digital</option>
+            <option value="HR">HR</option>
+            <option value="Customer Experience">Customer Experience</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="assign-user">Assigned Person / Role</label>
+          <input type="text" id="assign-user" required placeholder="e.g. Marcus Vance (Store Ops Lead)">
+        </div>
+        <div class="form-group">
+          <label for="assign-note">Assignment Note</label>
+          <input type="text" id="assign-note" placeholder="Instructions for the assignee…">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm Assignment</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 3. Add Investigation Note Modal -->
+  <div id="modal-note" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Investigation Note</h3>
+        <button class="modal-close-btn" id="close-modal-note">&times;</button>
+      </div>
+      <form id="form-add-note" class="modal-body">
+        <input type="hidden" id="note-incident-id">
+        <div class="form-group">
+          <label for="note-text">Investigation Note / Audit Log Entry</label>
+          <textarea id="note-text" rows="4" required placeholder="Record notes, call logs, supplier contacts, or inspection observations…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Append Note to Audit Trail</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 4. Update Status Modal -->
+  <div id="modal-status" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Update Incident Status</h3>
+        <button class="modal-close-btn" id="close-modal-status">&times;</button>
+      </div>
+      <form id="form-update-status" class="modal-body">
+        <input type="hidden" id="status-incident-id">
+        <div class="form-group">
+          <label for="status-new-val">New Workflow Status</label>
+          <select id="status-new-val" required>
+            <option value="Detected — awaiting review">Detected — awaiting review</option>
+            <option value="Assigned">Assigned</option>
+            <option value="Investigating">Investigating</option>
+            <option value="Action in progress">Action in progress</option>
+            <option value="Pending verification">Pending verification</option>
+            <option value="Resolved">Resolved</option>
+            <option value="Not substantiated">Not substantiated (Dismiss)</option>
+          </select>
+        </div>
+        <div class="form-group">
+          <label for="status-note">Status Transition Reason</label>
+          <input type="text" id="status-note" placeholder="Provide context for this workflow transition…">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Update Status</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 5. Escalate Incident Modal -->
+  <div id="modal-escalate" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title text-critical">Escalate Incident</h3>
+        <button class="modal-close-btn" id="close-modal-escalate">&times;</button>
+      </div>
+      <form id="form-escalate-incident" class="modal-body">
+        <input type="hidden" id="escalate-incident-id">
+        <div class="callout callout-critical">
+          <strong>Escalation Policy:</strong> Escalating triggers high-priority notification to Regional Directors and sets severity to Critical / High with mandatory audit logging.
+        </div>
+        <div class="form-group mt-3">
+          <label for="escalate-reason">Reason for Escalation *</label>
+          <textarea id="escalate-reason" rows="3" required placeholder="Specify why this requires immediate escalation (e.g. food allergen breach, repeated failure, equipment hazard)…"></textarea>
+        </div>
+        <button type="submit" class="btn btn-danger btn-block">Confirm Escalation</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 6. Resolve Incident Modal -->
+  <div id="modal-resolve" class="modal-backdrop hidden">
+    <div class="modal-dialog">
+      <div class="modal-header">
+        <h3 class="modal-title">Resolve Incident & Record Outcome</h3>
+        <button class="modal-close-btn" id="close-modal-resolve">&times;</button>
+      </div>
+      <form id="form-resolve-incident" class="modal-body">
+        <input type="hidden" id="resolve-incident-id">
+        <div class="form-group">
+          <label for="resolve-root-cause">Root Cause *</label>
+          <input type="text" id="resolve-root-cause" required placeholder="e.g. Faulty compressor relay switch on circuit #4">
+        </div>
+        <div class="form-group">
+          <label for="resolve-action">Corrective Action Taken *</label>
+          <textarea id="resolve-action" rows="3" required placeholder="e.g. Replaced compressor relay, verified 2°C temperature for 6 hours, disposed of thawed inventory…"></textarea>
+        </div>
+        <div class="form-group">
+          <label for="resolve-notes">Resolution Summary Notes</label>
+          <input type="text" id="resolve-notes" placeholder="e.g. Work order signed by store manager">
+        </div>
+        <button type="submit" class="btn btn-primary btn-block">Confirm Resolution</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- 7. Feedback Inspection Slide-Over Drawer -->
+  <div id="drawer-feedback" class="drawer-backdrop hidden">
+    <div class="drawer-panel">
+      <div class="drawer-header">
+        <div>
+          <span class="badge-id" id="drw-fb-id">FB-001</span>
+          <h3 class="drawer-title" id="drw-fb-store">Store ST-104</h3>
+        </div>
+        <button class="modal-close-btn" id="close-drawer-feedback">&times;</button>
+      </div>
+      <div class="drawer-body" id="drw-fb-content">
+        <!-- Rendered dynamically -->
+      </div>
+    </div>
+  </div>
+
+  <!-- Toast Container -->
+  <div id="toast-container" class="toast-container"></div>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
+  
+  <!-- Main Application Script -->
+  <script src="/static/app.js"></script>
+</body>
+</html>
